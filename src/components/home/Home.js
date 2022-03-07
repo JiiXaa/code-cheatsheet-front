@@ -1,17 +1,30 @@
 import Axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Snippet from './Snippet';
 import SnippetEditor from './SnippetEditor';
+import UserContext from '../../context/UserContext';
+
 import './Home.scss';
+import { Link } from 'react-router-dom';
 
 function Home() {
   const [snippets, setSnippets] = useState([]);
   const [SnippetEditorOpen, setSnippetEditorOpen] = useState(false);
   const [editSnippetData, setEditSnippetData] = useState(null);
 
+  // need to destructure user because UserContext is an object with multiple values
+  const { user } = useContext(UserContext);
+
   useEffect(() => {
+    if (!user) {
+      // when log off gets rid off all user's snippet
+      setSnippets([]);
+      // fix for 401 (Unauthorized) after logging off
+      return;
+    }
+    // when logged in
     getSnippets();
-  }, []);
+  }, [user]);
 
   async function getSnippets() {
     const snippetsRes = await Axios.get('http://localhost:5000/snippet/');
@@ -43,10 +56,11 @@ function Home() {
 
   return (
     <div className='home'>
-      {!SnippetEditorOpen && (
+      {!SnippetEditorOpen && user && (
         <button
           className='btn-editor-toggle'
-          onClick={() => setSnippetEditorOpen(true)}
+          // onClick={() => setSnippetEditorOpen(true)}
+          onClick={() => editSnippet(false)}
         >
           Add snippet
         </button>
@@ -58,7 +72,14 @@ function Home() {
           editSnippetData={editSnippetData}
         />
       )}
-      {renderSnippets()}
+      {snippets.length > 0 && renderSnippets()}
+      {/* user === null && better than !user &&. Prevents showing component while refreshing */}
+      {user === null && (
+        <div className='no-user-msg'>
+          <h2>Welcome to code Cheatsheet Manager</h2>
+          <Link to='/register'>Register here</Link>
+        </div>
+      )}
     </div>
   );
 }

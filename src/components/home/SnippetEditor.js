@@ -38,9 +38,10 @@ function SnippetEditor({ setSnippetEditorOpen, getSnippets, editSnippetData }) {
 
   function closeEditor() {
     setSnippetEditorOpen(false);
-    setEditorDesc('');
-    setEditorCode('');
-    setEditorTitle('');
+    // setSnippetEditorOpen(false);
+    // setEditorDesc('');
+    // setEditorCode('');
+    // setEditorTitle('');
   }
 
   return (

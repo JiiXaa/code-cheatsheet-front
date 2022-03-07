@@ -13,7 +13,7 @@ function Snippet({ snippet, getSnippets, editSnippet }) {
 
   async function deleteSnippet() {
     await Axios.delete(`http://localhost:5000/snippet/${snippet._id}`);
-
+    // get new snippets after deleting one
     getSnippets();
   }
 

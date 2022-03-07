@@ -5,4 +5,27 @@
     @include btn();
     background: var(--light-color);
   }
+
+  .no-user-msg {
+    margin-top: 4rem;
+    color: var(--text-light-color);
+    text-align: center;
+
+    h2 {
+      font-size: 3rem;
+    }
+
+    a {
+      @include btn();
+      margin-top: 2rem;
+      color: var(--text-dark-color);
+      background-color: var(--light-color);
+      font-weight: unset;
+      display: inline-block;
+
+      &:hover {
+        text-decoration: unset;
+      }
+    }
+  }
 }

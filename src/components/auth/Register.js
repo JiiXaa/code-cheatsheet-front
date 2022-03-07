@@ -1,12 +1,18 @@
 import axios from 'axios';
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import UserContext from '../../context/UserContext';
+
 import './AuthForm.scss';
 
 function Register() {
   const [formEmail, setFormEmail] = useState('');
   const [formPassword, setFormPassword] = useState('');
   const [formPasswordVerify, setFormPasswordVerify] = useState('');
+
+  const { getUser } = useContext(UserContext);
+
+  const history = useHistory();
 
   async function register(e) {
     e.preventDefault();
@@ -18,6 +24,9 @@ function Register() {
     };
 
     await axios.post('http://localhost:5000/auth', registerData);
+
+    await getUser();
+    history.push('/');
   }
 
   return (
