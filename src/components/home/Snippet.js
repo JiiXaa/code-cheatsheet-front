@@ -5,16 +5,16 @@ import './prism.css';
 import { useEffect } from 'react';
 
 function Snippet({ snippet, getSnippets, editSnippet }) {
-  // console.log(snippet);
-
   useEffect(() => {
     Prism.highlightAll();
   }, [snippet]);
 
   async function deleteSnippet() {
-    await Axios.delete(`http://localhost:5000/snippet/${snippet._id}`);
-    // get new snippets after deleting one
-    getSnippets();
+    if (window.confirm('Are you sure you want to delete this snippet?')) {
+      await Axios.delete(`http://localhost:5000/snippet/${snippet._id}`);
+      // get new snippets after deleting one
+      getSnippets();
+    }
   }
 
   return (

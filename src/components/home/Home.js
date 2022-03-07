@@ -72,7 +72,11 @@ function Home() {
           editSnippetData={editSnippetData}
         />
       )}
-      {snippets.length > 0 && renderSnippets()}
+      {snippets.length > 0
+        ? renderSnippets()
+        : user && (
+            <p className='no-snippets-msg'>No snippets have been added yet</p>
+          )}
       {/* user === null && better than !user &&. Prevents showing component while refreshing */}
       {user === null && (
         <div className='no-user-msg'>

@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import UserContext from '../../context/UserContext';
+import ErrorMessage from '../misc/ErrorMessage';
 
 import './AuthForm.scss';
 
@@ -9,6 +10,7 @@ function Register() {
   const [formEmail, setFormEmail] = useState('');
   const [formPassword, setFormPassword] = useState('');
   const [formPasswordVerify, setFormPasswordVerify] = useState('');
+  const [errorMsg, setErrorMsg] = useState(null);
 
   const { getUser } = useContext(UserContext);
 
@@ -22,8 +24,17 @@ function Register() {
       password: formPassword,
       passwordVerify: formPasswordVerify,
     };
-
-    await axios.post('http://localhost:5000/auth', registerData);
+    try {
+      await axios.post('http://localhost:5000/auth', registerData);
+    } catch (err) {
+      if (err.response) {
+        // errorMessage comes from backend validation in userRouter.js
+        if (err.response.data.errorMessage) {
+          setErrorMsg(err.response.data.errorMessage);
+        }
+      }
+      return;
+    }
 
     await getUser();
     history.push('/');
@@ -32,6 +43,9 @@ function Register() {
   return (
     <div className='auth-form'>
       <h2>Register new account</h2>
+      {errorMsg && (
+        <ErrorMessage msg={errorMsg} clear={() => setErrorMsg(null)} />
+      )}
       <form className='form' onSubmit={register}>
         <label htmlFor='form-email'>Email</label>
         <input

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import './SnippetEditor.scss';
+import ErrorMessage from '../misc/ErrorMessage';
 
 function SnippetEditor({ setSnippetEditorOpen, getSnippets, editSnippetData }) {
   const [editorTitle, setEditorTitle] = useState('');
   const [editorDesc, setEditorDesc] = useState('');
   const [editorCode, setEditorCode] = useState('');
+  const [errorMsg, setErrorMsg] = useState(null);
 
   useEffect(() => {
     if (editSnippetData) {
@@ -24,13 +26,23 @@ function SnippetEditor({ setSnippetEditorOpen, getSnippets, editSnippetData }) {
       code: editorCode ? editorCode : undefined,
     };
 
-    if (!editSnippetData)
-      await Axios.post('http://localhost:5000/snippet/', snippetData);
-    else
-      await Axios.put(
-        `http://localhost:5000/snippet/${editSnippetData._id}`,
-        snippetData
-      );
+    try {
+      if (!editSnippetData)
+        await Axios.post('http://localhost:5000/snippet/', snippetData);
+      else
+        await Axios.put(
+          `http://localhost:5000/snippet/${editSnippetData._id}`,
+          snippetData
+        );
+    } catch (err) {
+      if (err.response) {
+        // errorMessage comes from backend validation in userRouter.js
+        if (err.response.data.errorMessage) {
+          setErrorMsg(err.response.data.errorMessage);
+        }
+      }
+      return;
+    }
 
     getSnippets();
     closeEditor();
@@ -46,6 +58,9 @@ function SnippetEditor({ setSnippetEditorOpen, getSnippets, editSnippetData }) {
 
   return (
     <div className='snippet-editor'>
+      {errorMsg && (
+        <ErrorMessage msg={errorMsg} clear={() => setErrorMsg(null)} />
+      )}
       <form className='form' onSubmit={saveSnippet}>
         <label htmlFor='editor-title'>Title</label>
         <input

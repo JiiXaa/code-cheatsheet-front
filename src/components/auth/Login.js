@@ -3,11 +3,13 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import UserContext from '../../context/UserContext';
+import ErrorMessage from '../misc/ErrorMessage';
 import './AuthForm.scss';
 
 function Login() {
   const [formEmail, setFormEmail] = useState('');
   const [formPassword, setFormPassword] = useState('');
+  const [errorMsg, setErrorMsg] = useState(null);
 
   const { getUser } = useContext(UserContext);
 
@@ -21,8 +23,17 @@ function Login() {
       password: formPassword,
     };
 
-    await axios.post('http://localhost:5000/auth/login', loginData);
-
+    try {
+      await axios.post('http://localhost:5000/auth/login', loginData);
+    } catch (err) {
+      if (err.response) {
+        // errorMessage comes from backend validation in userRouter.js
+        if (err.response.data.errorMessage) {
+          setErrorMsg(err.response.data.errorMessage);
+        }
+      }
+      return;
+    }
     // need to use await because getUser is a async fn.
     // It updates context user after logging in
     await getUser();
@@ -32,6 +43,9 @@ function Login() {
   return (
     <div className='auth-form'>
       <h2>Log in</h2>
+      {errorMsg && (
+        <ErrorMessage msg={errorMsg} clear={() => setErrorMsg(null)} />
+      )}
       <form className='form' onSubmit={login}>
         <label htmlFor='form-email'>Email</label>
         <input
