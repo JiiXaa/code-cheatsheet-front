@@ -1,0 +1,8 @@
+@import '../../style/mixins.scss';
+
+.home {
+  .btn-editor-toggle {
+    @include btn();
+    background: var(--light-color);
+  }
+}
