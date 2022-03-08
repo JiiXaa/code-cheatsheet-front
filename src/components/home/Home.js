@@ -4,6 +4,8 @@ import Snippet from './Snippet';
 import SnippetEditor from './SnippetEditor';
 import UserContext from '../../context/UserContext';
 
+import landingImg from '../../img/snipper-landing01.png';
+
 import './Home.scss';
 import { Link } from 'react-router-dom';
 
@@ -81,6 +83,7 @@ function Home() {
       {user === null && (
         <div className='no-user-msg'>
           <h2>Welcome to code Cheatsheet Manager</h2>
+          <img src={landingImg} alt='example code snippet' />
           <Link to='/register'>Register here</Link>
         </div>
       )}

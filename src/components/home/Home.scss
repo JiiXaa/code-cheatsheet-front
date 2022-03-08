@@ -1,6 +1,7 @@
 @import '../../style/mixins.scss';
 
 .home {
+  border-radius: 5px;
   .btn-editor-toggle {
     @include btn();
     background: var(--light-color);
@@ -22,7 +23,7 @@
 
     a {
       @include btn();
-      margin-top: 2rem;
+      margin-top: 1rem;
       color: var(--text-dark-color);
       background-color: var(--light-color);
       font-weight: unset;
