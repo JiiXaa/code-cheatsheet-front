@@ -1,13 +1,14 @@
 import Axios from 'axios';
 import React, { useEffect, useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import domain from '../../utils/domain';
+
 import Snippet from './Snippet';
 import SnippetEditor from './SnippetEditor';
 import UserContext from '../../context/UserContext';
-
 import landingImg from '../../img/snipper-landing01.png';
 
 import './Home.scss';
-import { Link } from 'react-router-dom';
 
 function Home() {
   const [snippets, setSnippets] = useState([]);
@@ -29,7 +30,7 @@ function Home() {
   }, [user]);
 
   async function getSnippets() {
-    const snippetsRes = await Axios.get('http://localhost:5000/snippet/');
+    const snippetsRes = await Axios.get(`${domain}/snippet/`);
     setSnippets(snippetsRes.data);
   }
 

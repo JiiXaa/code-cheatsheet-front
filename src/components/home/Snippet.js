@@ -1,8 +1,10 @@
 import Axios from 'axios';
-import './Snippet.scss';
+import { useEffect } from 'react';
+import domain from '../../utils/domain';
+
 import Prism from 'prismjs';
 import './prism.css';
-import { useEffect } from 'react';
+import './Snippet.scss';
 
 function Snippet({ snippet, getSnippets, editSnippet }) {
   useEffect(() => {
@@ -11,7 +13,7 @@ function Snippet({ snippet, getSnippets, editSnippet }) {
 
   async function deleteSnippet() {
     if (window.confirm('Are you sure you want to delete this snippet?')) {
-      await Axios.delete(`http://localhost:5000/snippet/${snippet._id}`);
+      await Axios.delete(`${domain}/snippet/${snippet._id}`);
       // get new snippets after deleting one
       getSnippets();
     }

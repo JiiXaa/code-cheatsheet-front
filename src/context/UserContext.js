@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React, { createContext, useEffect, useState } from 'react';
+// specify path for a requests depending on production or development NODE_ENV
+import domain from '../utils/domain';
 
 const UserContext = createContext();
 
@@ -11,7 +13,7 @@ function UserContextProvider({ children }) {
 
   async function getUser() {
     // this endpoint reads the cookie
-    const userRes = await axios.get('http://localhost:5000/auth/loggedIn');
+    const userRes = await axios.get(`${domain}/auth/loggedIn`);
     setUser(userRes.data);
   }
 

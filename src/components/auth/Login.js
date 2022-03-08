@@ -2,8 +2,11 @@ import axios from 'axios';
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import domain from '../../utils/domain';
+
 import UserContext from '../../context/UserContext';
 import ErrorMessage from '../misc/ErrorMessage';
+
 import './AuthForm.scss';
 
 function Login() {
@@ -24,7 +27,7 @@ function Login() {
     };
 
     try {
-      await axios.post('http://localhost:5000/auth/login', loginData);
+      await axios.post(`${domain}/auth/login`, loginData);
     } catch (err) {
       if (err.response) {
         // errorMessage comes from backend validation in userRouter.js

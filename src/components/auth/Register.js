@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import domain from '../../utils/domain';
+
 import UserContext from '../../context/UserContext';
 import ErrorMessage from '../misc/ErrorMessage';
 
@@ -25,7 +27,7 @@ function Register() {
       passwordVerify: formPasswordVerify,
     };
     try {
-      await axios.post('http://localhost:5000/auth', registerData);
+      await axios.post(`${domain}/auth`, registerData);
     } catch (err) {
       if (err.response) {
         // errorMessage comes from backend validation in userRouter.js
