@@ -6,8 +6,11 @@ MERN stack application for creating code snippets for personal use. Stored in Mo
 ✨ - NodeJS <br>
 ✨ - MongoDB <br>
 
+## State manage system
+Context API which provides a way to pass data through the component tree without having to pass props down manually at every level (prevents prop drilling or unnecesary state lifting)
+<br>
 ## Input Validation 
-both front-end and back-end validation for preventing improperly formed data.
+Both front-end and back-end validation for preventing improperly formed data.
 <br>
 ## Authentication 
 JWT stored inside an httpOnly cookie to make sure no one can get access to it. Cookie requests are send to the server.
