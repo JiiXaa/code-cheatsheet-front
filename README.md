@@ -1,4 +1,4 @@
-# Code Cheatsheet
+# Code Cheatsheet (Front-End code)
 
 MERN stack application for creating code snippets for personal use. Stored in Mongo DataBase, only visible for logged in users.
 
