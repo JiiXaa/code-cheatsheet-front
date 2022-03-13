@@ -83,7 +83,7 @@ function Home() {
       {/* user === null && better than !user &&. Prevents showing component while refreshing */}
       {user === null && (
         <div className='no-user-msg'>
-          <h2>Welcome to code Cheatsheet Manager</h2>
+          <h2>Welcome to Code Cheatsheet Manager</h2>
           <img src={landingImg} alt='example code snippet' />
           <Link to='/register'>Register here</Link>
         </div>

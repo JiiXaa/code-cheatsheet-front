@@ -32,7 +32,7 @@ function SnippetEditor({ setSnippetEditorOpen, getSnippets, editSnippetData }) {
       if (!editSnippetData) await Axios.post(`${domain}/snippet/`, snippetData);
       else
         await Axios.put(
-          `http://localhost:5000/snippet/${editSnippetData._id}`,
+          `http://${domain}/snippet/${editSnippetData._id}`,
           snippetData
         );
     } catch (err) {
