@@ -84,7 +84,15 @@ function Home() {
       {user === null && (
         <div className='no-user-msg'>
           <h2>Welcome to Code Cheatsheet Manager</h2>
-          <img src={landingImg} alt='example code snippet' />
+          <div className='landing-info'>
+            <h3>Register or Log In to see your dashboard</h3>
+            <p className='landing-desc'>
+              <span>Struggling to memorize code?</span> No problem! Just sign in
+              to your dashboard and add code snippets for your future reference.
+              They are safely stored in a back-end database so you can revisit
+              them on any machine.
+            </p>
+          </div>
           <Link to='/register'>Register here</Link>
         </div>
       )}

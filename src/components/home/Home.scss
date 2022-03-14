@@ -14,8 +14,31 @@
 
   .no-user-msg {
     margin-top: 4rem;
-    color: var(--text-light-color);
+    color: var(--text-dark-color);
     text-align: center;
+
+    .landing-info {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px,
+        rgba(0, 0, 0, 0.24) 0px 1px 2px;
+
+      h3 {
+        color: var(--text-dark-color);
+      }
+
+      .landing-desc {
+        margin-top: 1rem;
+        color: var(--text-dark-color);
+        text-align: start;
+
+        span {
+          font-weight: bold;
+          color: var(--text-danger-color);
+        }
+      }
+    }
 
     h2 {
       font-size: 3rem;
