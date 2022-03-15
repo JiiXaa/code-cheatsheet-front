@@ -19,4 +19,7 @@ Snippets are automatically styled by the use of PrismJS library
 
 For Backend code
 [Click here](https://github.com/JiiXaa/code-cheatsheet-back)
+<br />
+
+[Live Demo](https://bit.ly/code-snippet-manager)
 
